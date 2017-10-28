@@ -1,5 +1,8 @@
 /*公共样式表*/
 
+
+/** 公共顶部消息提醒 **/
+
 .public-container {
     position: relative;
     margin: 0 auto;
@@ -31,4 +34,52 @@
 
 .public-top-notice .top-notice-cancel:hover {
     cursor: pointer;
+}
+
+
+/** 公共header **/
+
+.public-header {
+    height: 90px;
+}
+
+.public-header .header-logo {
+    float: left;
+    margin-top: 30px;
+}
+
+.public-header .header-logo a {
+    height: 22px;
+    width: 234px;
+    background: url("../img/logo-style-black.png") no-repeat;
+}
+
+.public-header .header-follow {
+    float: left;
+    margin: 30px 0 0 30px;
+    font: 12px/21px "SimSun";
+}
+
+.public-header .header-follow .follow-done {
+    width: 54px;
+    height: 21px;
+    padding: 5px 0 5px 22px;
+    background: #21a557 url("../img/icon-add.png") no-repeat 9px 7px/9px 9px;
+    color: #ffffff;
+    border-radius: 2px;
+    font: 12px/21px "SimSun";
+}
+
+.public-header .header-follow .follow-done:hover {
+    background-color: #2fb556;
+    cursor: pointer;
+}
+
+.public-header .header-follow .fans-total {
+    line-height: 21px;
+    margin-left: 14px;
+}
+
+.public-header .header-nav {
+    float: right;
 }
