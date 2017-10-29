@@ -21,10 +21,6 @@
     color: #21a557;
 }
 
-.public-top-notice .top-notice-url:hover {
-    text-decoration: underline;
-}
-
 .public-top-notice .top-notice-cancel {
     position: relative;
     float: right;
@@ -60,18 +56,46 @@
     font: 12px/21px "SimSun";
 }
 
-.public-header .header-follow .follow-done {
+.public-header .header-follow .follow-todo {
     width: 54px;
     height: 21px;
     padding: 5px 0 5px 22px;
     background: #21a557 url("../img/icon-add.png") no-repeat 9px 7px/9px 9px;
     color: #ffffff;
-    border-radius: 2px;
-    font: 12px/21px "SimSun";
+    border-radius: 3px;
+}
+
+.public-header .header-follow .follow-todo:hover {
+    background-color: #2fb556;
+    cursor: pointer;
+}
+
+.public-header .header-follow .follow-done {
+    width: 106px;
+    height: 21px;
+    padding: 5px 8px 5px 22px;
+    background: #f8f8f8 url("../img/icon-hook.png") no-repeat 7px 7px/11px 9px;
+    color: #333333;
+    border: 1px solid #efefef;
+    border-radius: 3px;
 }
 
 .public-header .header-follow .follow-done:hover {
-    background-color: #2fb556;
+    background-color: #ffffff;
+}
+
+.public-header .header-follow .follow-done b {
+    font-weight: normal;
+    color: #cccccc;
+}
+
+.public-header .header-follow .follow-done .follow-cancel {
+    color: #999999;
+}
+
+.public-header .header-follow .follow-done .follow-cancel:hover {
+    color: #21a557;
+    text-decoration: underline;
     cursor: pointer;
 }
 
@@ -82,4 +106,90 @@
 
 .public-header .header-nav {
     float: right;
+    margin-top: 36px;
+    line-height: 19px;
+    /*因为导航栏的字体（HiraginoSansGB W3）比较特殊，所以暂用微软雅黑代替*/
+    font: 16px/19px "Microsoft YaHei";
+}
+
+.public-header .header-nav .item {
+    float: left;
+    margin-left: 55px;
+}
+
+.public-header .header-nav .item a {
+    color: #666666;
+}
+
+.public-header .header-nav .item a:hover {
+    color: #39a030;
+}
+
+.public-header .header-search {
+    float: left;
+    margin-left: 30px;
+}
+
+.public-header .header-search a {
+    width: 19px;
+    height: 19px;
+    background: url("../img/icon-search-normal.png") no-repeat;
+}
+
+.public-header .header-search a:hover {
+    width: 19px;
+    height: 19px;
+    background: url("../img/icon-search-hover.png") no-repeat;
+}
+
+
+/** 公共footer **/
+
+.public-footer {
+    height: 364px;
+    background-color: #2c3339;
+    color: #fff;
+    font: 12.5px "Microsoft YaHei";
+}
+
+.public-footer .footer-desc {
+    float: left;
+    margin-right: 150px;
+}
+
+.public-footer .footer-desc .footer-logo {
+    width: 234px;
+    height: 22px;
+    margin: 92px 0 28px;
+    background: url("../img/logo-style-green.png") no-repeat;
+}
+
+.public-footer .footer-desc p {
+    margin-bottom: 12px;
+}
+
+.public-footer .footer-col {
+    float: left;
+    margin-top: 80px;
+}
+
+.public-footer .footer-col p {
+    margin-bottom: 15px;
+}
+
+.public-footer .footer-col a {
+    margin-bottom: 15px;
+}
+
+.public-footer .footer-links {
+    margin-right: 100px;
+}
+
+.public-footer .footer-us {
+    margin-right: 66px;
+}
+
+.public-footer .footer-us .follow-weibo {
+    padding-right: 35px;
+    background: url("../img/icon-weibo.png") no-repeat right center / 20px 16px;
 }
