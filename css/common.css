@@ -84,6 +84,12 @@
     background-color: #ffffff;
 }
 
+.public-header .header-follow .follow-done:hover .follow-cancel {
+    color: #21a557;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .public-header .header-follow .follow-done b {
     font-weight: normal;
     color: #cccccc;
@@ -91,12 +97,6 @@
 
 .public-header .header-follow .follow-done .follow-cancel {
     color: #999999;
-}
-
-.public-header .header-follow .follow-done .follow-cancel:hover {
-    color: #21a557;
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 .public-header .header-follow .fans-total {
@@ -146,6 +146,7 @@
 /** 公共footer **/
 
 .public-footer {
+    margin-top: 120px;
     height: 364px;
     background-color: #2c3339;
     color: #fff;
