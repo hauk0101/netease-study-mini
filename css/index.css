@@ -87,6 +87,16 @@
     margin-top: 60px;
 }
 
+.index-workspace ul,
+.index-workspace .workspace-panel-parent li {
+    font-size: 0;
+}
+
+.index-workspace .workspace-panel-parent ul {
+    width: 100%;
+    margin-top: 60px;
+}
+
 .index-workspace .workspace-panel-parent .workspace-panel-item {
     display: inline-block;
     box-sizing: border-box;
@@ -106,14 +116,12 @@
 
 /**课程内容模块**/
 
-.index-content {
-    margin-top: 80px;
-}
-
 .index-content .content-tab .tab-item {
     display: inline-block;
     width: 200px;
     height: 52px;
+    margin: 80px 0 30px 0;
+    padding: 0;
     font: 20px/52px "Microsoft YaHei";
     text-align: center;
     color: #666;
@@ -124,4 +132,29 @@
 .index-content .content-tab .selected {
     background-color: #39a030;
     color: #fff;
+}
+
+.index-content .content-container {
+    display: inline-block;
+    width: 224px;
+    margin: 22px 22px 22px 0;
+    box-shadow: 1px 2px 1px #ecebeb;
+}
+
+.index-content .content-container img {
+    width: 222px;
+    height: 109px;
+    padding: 1px;
+}
+
+.index-content .content-container a {
+    color: #000;
+    text-decoration: none;
+}
+
+.index-content .content-course-panel p {
+    margin: 10px 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
