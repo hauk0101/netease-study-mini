@@ -115,6 +115,13 @@
 
 
 /**课程内容模块**/
+.index-content {
+    position: relative;
+    overflow: hidden;
+}
+.index-content .index-content-left{
+    float:left;
+}
 
 .index-content .content-tab .tab-item {
     display: inline-block;
@@ -157,4 +164,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+/** 视频模块 **/
+.index-content .index-content-right{
+    clear: both;
+    float:right;
 }
