@@ -117,11 +117,10 @@
 /**课程内容模块**/
 .index-content {
     overflow: hidden;
-    white-space:nowrap;
 }
 .index-content .index-content-left{
     float:left;
-    width:984px;
+    width:982px;
 }
 
 .index-content .content-tab .tab-item {
@@ -133,6 +132,7 @@
     font: 20px/52px "Microsoft YaHei";
     text-align: center;
     color: #666;
+    background-color:#fff;
     box-shadow: 1px 2px 1px #ecebeb;
     cursor: pointer;
 }
@@ -142,16 +142,13 @@
     color: #fff;
 }
 
-.index-content .content-container{
-  
-}
 
 .index-content .content-container .content-course-panel{
     display: inline-block;
     width: 224px;
     margin: 0px 20px 20px 0;
-    border:1px solid #ecebeb;
-    box-shadow: 1px 2px 1px #f3f3f3;
+    background-color:#fff;
+    box-shadow: 1px 2px 1px #efefef;
 }
 
 .index-content .content-course-panel img {
@@ -172,14 +169,27 @@
 .index-content .index-content-right{
     float:right;
     width: 224px;
-
 }
 
 .index-content .institution-introduce{
-    
- 
+    margin: 84px 0 20px;
+    background-color:#fff;
+    box-shadow: 1px 2px 1px #efefef;
 }
 
 .index-content .index-content-right .right-title{
-    font: 16px "Microsoft YaHei";
+    font: 16px/55px "Microsoft YaHei";
+    padding-left:20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.index-content .index-content-right .right-content{
+    width: 180px;
+    padding: 20px 22px;
+    font:14px "Microsoft YaHei";
+}
+
+.index-content .index-content-right .introduce-video-play{
+    margin-top: 10px;
+    cursor: pointer;
 }
