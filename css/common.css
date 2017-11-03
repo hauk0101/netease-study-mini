@@ -45,6 +45,7 @@
 }
 
 .public-header .header-logo a {
+    display: block;
     height: 22px;
     width: 234px;
     background: url("../img/logo-style-black.png") no-repeat;
@@ -179,6 +180,7 @@
 }
 
 .public-footer .footer-col a {
+    display: block;
     margin-bottom: 15px;
 }
 
