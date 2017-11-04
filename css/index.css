@@ -163,6 +163,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    font: 12px "Microsoft YaHei";
 }
 
 /** 视频模块 **/
@@ -192,4 +193,51 @@
 .index-content .index-content-right .introduce-video-play{
     margin-top: 10px;
     cursor: pointer;
+}
+
+/** 热门排行 **/
+.index-content .hot-rank{
+    background-color:#fff;
+    box-shadow: 1px 2px 1px #efefef;
+}
+
+.index-content .hot-rank .right-title{
+    border-bottom: 1px solid #eee;
+}
+
+.index-content .hot-rank .right-content{
+    padding: 0;
+    margin-top: 20px;
+}
+
+.index-content .index-content-right .hot-rank .hot-course{
+    width: 186px;
+    height: 50px;
+    padding: 0 20px 20px;
+}
+
+.index-content .hot-course img{
+    float: left; 
+    width: 50px;
+    height: 50px;
+   
+}
+
+.index-content .hot-course .hot-course-desc{
+    float:right;
+    width: 136px;
+}
+
+.index-content .hot-course p{
+    padding-left: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font: 14px/14px "Microsoft YaHei";
+}
+
+.index-content .hot-course .course-hot{
+    color:#999;
+    font-size: 12px;
 }
