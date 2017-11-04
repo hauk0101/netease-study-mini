@@ -151,11 +151,22 @@
     box-shadow: 1px 2px 1px #efefef;
 }
 
+.index-content .content-container .content-course-panel:hover {
+    box-shadow: 1px 2px 1px #cccccc;
+}
+
+.index-content .content-container .content-course-panel:hover .course-desc{
+    color:#39a030;
+}
+
+.index-content .content-container .course-desc{
+    font-weight: bolder;
+}
+
 .index-content .content-course-panel img {
     width: 222px;
     height: 109px;
 }
-
 
 
 .index-content .content-course-panel p {
@@ -165,6 +176,56 @@
     overflow: hidden;
     font: 12px "Microsoft YaHei";
 }
+
+.index-content .content-course-panel .course-author{
+    color:#999;
+}
+
+.index-content .content-course-panel .course-price{
+    color:#ff3f00;
+    font-weight: bolder;
+}
+
+.index-content .content-course-panel .course-hot{
+    margin: 10px 5px;
+    padding: 0 3px 0 18px;
+    background: url("../img/icon-course-hot.png") no-repeat 3px 2px;
+    color:#999;
+    font:12px /16px "Microsoft YaHei";
+    border: 1px solid #999;
+    border-radius: 2px;
+}
+
+/** 分页器模块 **/
+.index-content .content-pagination-container{
+    float: right;
+    margin-right: 40px;
+}
+
+.index-content .content-pagination-container span{
+    height: 20px;
+    padding: 0 7px;
+    font: 14px/20px "Microsoft YaHei";
+    text-align: center;
+    cursor: pointer;
+}
+
+.index-content .content-pagination-container .pageination-tab-item:hover{
+    background-color:#9dd8b1;
+    color:#fff;
+}
+.index-content .content-pagination-container .tab-item-select{
+    color:#39a030;
+}
+
+.index-content .content-pagination-container .tab-arrow{
+    padding: 0 10px;
+    color:#fff;
+    background-color:#9dd8b1;
+    font-weight: bolder;
+}
+
+
 
 /** 视频模块 **/
 .index-content .index-content-right{
@@ -182,6 +243,7 @@
     font: 16px/55px "Microsoft YaHei";
     padding-left:20px;
     border-bottom: 1px solid #ddd;
+    font-weight: bolder;
 }
 
 .index-content .index-content-right .right-content{
@@ -216,6 +278,10 @@
     padding: 0 20px 20px;
 }
 
+.index-content .index-content-right .hot-rank .hot-course:hover{
+    border-right: 1px solid #ccc;
+}
+
 .index-content .hot-course img{
     float: left; 
     width: 50px;
@@ -226,6 +292,7 @@
 .index-content .hot-course .hot-course-desc{
     float:right;
     width: 136px;
+    font-weight: bolder;
 }
 
 .index-content .hot-course p{
@@ -240,4 +307,6 @@
 .index-content .hot-course .course-hot{
     color:#999;
     font-size: 12px;
+    background: url("../img/icon-course-hot.png") no-repeat 13px;
+    padding-left:30px;
 }

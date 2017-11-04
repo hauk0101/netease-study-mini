@@ -132,6 +132,7 @@
 }
 
 .public-header .header-search a {
+    display:block;
     width: 19px;
     height: 19px;
     background: url("../img/icon-search-normal.png") no-repeat;
