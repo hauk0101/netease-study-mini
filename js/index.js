@@ -16,6 +16,8 @@
         setTopNotice();
         //设置关注信息
         setFollowStatus();
+        //设置轮播图效果
+        setBannerEffect();
     }
 
     /**
@@ -170,4 +172,87 @@
         }
     }
 
+    /**
+     * 设置Banner图轮播效果
+     */
+    function setBannerEffect() {
+        var _bannerList = document.querySelectorAll('.index-banner .banner-slide');
+        var _silderList = document.querySelectorAll('.index-banner .slider-panel .slider');
+        var _changeTime = 5000, _fadeTime = 500;
+        var _currentIndex = 0;
+        var _silderSelectedClassName = 'slider-selected';
+        var _bannerPauseChange = false;
+        //默认开始隐藏全部banner，并只显示第一个banner 
+        hideAllBanner(function () {
+            $.fadeIn(_bannerList[_currentIndex], 0);
+        });
+        //默认开始隐藏全部silder选中状态,并只显示第一个
+        hideAllSlider();
+        $.addClass(_silderList[_currentIndex], _silderSelectedClassName);
+        //开启定时器
+        var _intervalIndex = setInterval(changeBanner, _changeTime);
+        //改变banner图
+        function changeBanner() {
+            if(!_bannerPauseChange){
+                $.fadeOut(_bannerList[_currentIndex], 0, null);
+                _currentIndex++;
+                _currentIndex = (_currentIndex >= _bannerList.length) ? 0 : _currentIndex;
+                $.fadeIn(_bannerList[_currentIndex], _fadeTime, null);
+                hideAllSlider();
+                $.addClass(_silderList[_currentIndex], _silderSelectedClassName);
+            }
+        }
+        //为silder添加点击事件
+        for (var i = 0; i < _silderList.length; i++) {
+            _silderList[i]._currentIndex = i; 
+            $.addEventListener(_silderList[i], 'click', function () {
+                _bannerPauseChange = true;
+                setCurrentBanner(this._currentIndex);
+            });
+        }
+
+        //为每个banner添加鼠标移入移出事件
+        for(var i =0;i<_bannerList.length;i++){
+            var _b = _bannerList[i];
+            $.addEventListener(_b,'mouseover',function(){
+                _bannerPauseChange = true;
+            });
+            $.addEventListener(_b,'mouseout',function(){
+                _bannerPauseChange = false;
+            });
+        }
+
+        //设置当前Banner显示
+        function setCurrentBanner(currentIndex){
+            _currentIndex = currentIndex;
+            hideAllBanner(function(){
+                $.fadeIn(_bannerList[_currentIndex], _fadeTime, null);
+                _bannerPauseChange = false;
+            });
+            hideAllSlider();
+            $.addClass(_silderList[_currentIndex], _silderSelectedClassName);
+        }
+
+        //隐藏全部banner
+        function hideAllBanner(callback) {
+            for (var i = 0; i < _bannerList.length; i++) {
+                if (callback) {
+                    if (i == _bannerList.length - 1) {
+                        $.fadeOut(_bannerList[i], 0, callback);
+                    }
+                    else {
+                        $.fadeOut(_bannerList[i], 0, null);
+                    }
+                } else {
+                    $.fadeOut(_bannerList[i], 0, null);
+                }
+            }
+        }
+        //隐藏全部silder
+        function hideAllSlider() {
+            for (var i = 0; i < _silderList.length; i++) {
+                $.removeClass(_silderList[i], _silderSelectedClassName);
+            }
+        }
+    }
 })();

@@ -120,14 +120,14 @@
         ajaxData.beforeSend();
         var xhr = createxmlHttpRequest();
         if (ajaxData.type == "GET" || ajaxData.type == "get") {
-           
-            for(var d in ajaxData.data){
-                ajaxData.url = addURLParam( ajaxData.url,d,ajaxData.data[d]);
+
+            for (var d in ajaxData.data) {
+                ajaxData.url = addURLParam(ajaxData.url, d, ajaxData.data[d]);
             }
-            xhr.open(ajaxData.type,  ajaxData.url, ajaxData.async);
+            xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
             xhr.send(null);
         } else if (ajaxData.type == "POST" || ajaxData.type == "post") {
-            xhr.open(ajaxData.type,  ajaxData.url, ajaxData.async);
+            xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
             xhr.setRequestHeader("content-type", ajaxData.contentType);
             xhr.send(convertData(ajaxData));
         }
@@ -174,6 +174,63 @@
                 return data;
             }
         }
-    }
+    };
+
+    /**
+     * 元素淡入效果
+     * @param el 需要淡入效果的元素
+     * @param time 需要淡入效果的时间
+     */
+    Utils.fadeIn = function (el, time, callback) {
+        var opacity = 0;
+        el.style.display = "";
+        el.style.opacity = 0;
+        el.style.filter = '';
+        var last = +new Date();
+        //防止分母time出现0
+        time = (time == 0) ? 1 : time;
+        var tick = function () {
+            opacity += (new Date() - last) / time;
+            el.style.opacity = opacity;
+            el.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
+            last = +new Date();
+            if (opacity < 1) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick) || setTimeout(tick, 16));
+            } else {
+                el.style.opacity = 1;
+                el.style.filter = 'alpha(opacity=100)';
+                if (callback) callback();
+            }
+        };
+        tick();
+    };
+    /**
+     * 元素淡出效果
+     * @param el 需要淡出效果的元素
+     * @param time 需要淡出效果的时间
+     */
+    Utils.fadeOut = function (el, time, callback) {
+        var opacity = 1;
+        el.style.opacity = 1;
+        el.style.filter = 'alpha(opacity=100)';
+        //防止分母time出现0
+        time = (time == 0) ? 1 : time;
+        var last = +new Date();
+        var tick = function () {
+            opacity -= (new Date() - last) / time;
+            el.style.opacity = opacity;
+            el.style.filter = 'alpha(opacity=' - (100 * opacity) | 0 + ')';
+            last = +new Date();
+            if (opacity > 0) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick) || setTimeout(tick, 16));
+            } else {
+                el.style.opacity = 0;
+                el.style.filter = 'alpha(opacity=0)';
+                el.style.display = "none";
+                if (callback) callback();
+            }
+        };
+        tick();
+    };
     window.$ = Utils;
 })();
