@@ -125,6 +125,7 @@
 
 .public-header .header-nav .item a:hover {
     color: #39a030;
+    text-decoration: none;
 }
 
 .public-header .header-search {

@@ -14,6 +14,8 @@
     function init() {
        //设置顶部提示消息
        setTopNotice();
+       //设置关注信息
+       setFollowStatus();
     }
 
     /**
@@ -37,6 +39,14 @@
                 _topNoticeEl.style.display = 'none';
             }
         }
+    }
+
+    /**
+     * 设置关注相关状态
+     * 如果用户未登录，则需要先登录
+     */
+    function setFollowStatus(){
+        
     }
 
 })();
