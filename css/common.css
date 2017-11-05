@@ -199,3 +199,79 @@
     padding-right: 35px;
     background: url("../img/icon-weibo.png") no-repeat right center / 20px 16px;
 }
+
+/**登录模块**/
+.public-dialog .dialog-bg{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #333;
+    z-index: 999;
+    /*兼容IE8*/
+    filter:Alpha(opacity=80);
+    opacity:0.8;
+    overflow: hidden;
+}
+/*ie8兼容fixed方案*/
+.ie-fixed{   
+    _position: absolute;  
+    _clear: both;   
+    _top:expression(eval(document.compatMode &&   
+            document.compatMode=='CSS1Compat') ?   
+            documentElement.scrollTop   
+            +(documentElement.clientHeight-this.clientHeight) - 1   
+            : document.body.scrollTop   
+            +(document.body.clientHeight-this.clientHeight) - 1); 
+}
+
+.public-dialog .dialog-container{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 386px;
+    height: 288px;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.public-dialog .dialog-container .btn-close{
+    float:right;
+    margin: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+.public-dialog .login-title{
+    margin: 30px 20px 0 40px;
+    font:18px "Microsoft YaHei";
+    font-weight: bolder;
+}
+
+.public-dialog .dialog-container li input{
+    margin: 15px 0 0 40px;
+    padding-left: 10px;
+    width: 292px;
+    height: 42px;
+    background-color: #fafafa;
+    border: 3px solid #f1f1f1;
+    font: 16px/42px "Microsoft YaHei";
+}
+
+.public-dialog .dialog-container li .inputTip{
+    color:#cccccc;
+}
+
+.public-dialog .dialog-container .btn-login-submit{
+    margin: 30px 0 0 40px;
+    height: 48px;
+    background: url("../img/btn-login-submit.png") no-repeat 0 0 /308px;
+    cursor: pointer;
+}
+.public-dialog .dialog-container .btn-login-submit:hover{
+    background: url("../img/btn-login-submit-hover.png") no-repeat 0 0 /310px;
+}
+
+
+
