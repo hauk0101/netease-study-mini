@@ -18,6 +18,9 @@
         setFollowStatus();
         //设置轮播图效果
         setBannerEffect();
+
+        //设置视频模块
+        setVideoPlay();
     }
 
     /**
@@ -193,7 +196,7 @@
         var _intervalIndex = setInterval(changeBanner, _changeTime);
         //改变banner图
         function changeBanner() {
-            if(!_bannerPauseChange){
+            if (!_bannerPauseChange) {
                 $.fadeOut(_bannerList[_currentIndex], 0, null);
                 _currentIndex++;
                 _currentIndex = (_currentIndex >= _bannerList.length) ? 0 : _currentIndex;
@@ -204,7 +207,7 @@
         }
         //为silder添加点击事件
         for (var i = 0; i < _silderList.length; i++) {
-            _silderList[i]._currentIndex = i; 
+            _silderList[i]._currentIndex = i;
             $.addEventListener(_silderList[i], 'click', function () {
                 _bannerPauseChange = true;
                 setCurrentBanner(this._currentIndex);
@@ -212,20 +215,20 @@
         }
 
         //为每个banner添加鼠标移入移出事件
-        for(var i =0;i<_bannerList.length;i++){
+        for (var i = 0; i < _bannerList.length; i++) {
             var _b = _bannerList[i];
-            $.addEventListener(_b,'mouseover',function(){
+            $.addEventListener(_b, 'mouseover', function () {
                 _bannerPauseChange = true;
             });
-            $.addEventListener(_b,'mouseout',function(){
+            $.addEventListener(_b, 'mouseout', function () {
                 _bannerPauseChange = false;
             });
         }
 
         //设置当前Banner显示
-        function setCurrentBanner(currentIndex){
+        function setCurrentBanner(currentIndex) {
             _currentIndex = currentIndex;
-            hideAllBanner(function(){
+            hideAllBanner(function () {
                 $.fadeIn(_bannerList[_currentIndex], _fadeTime, null);
                 _bannerPauseChange = false;
             });
@@ -253,6 +256,69 @@
             for (var i = 0; i < _silderList.length; i++) {
                 $.removeClass(_silderList[i], _silderSelectedClassName);
             }
+        }
+    }
+
+    /**
+     * 设置视频播放模块
+     */
+    function setVideoPlay() {
+        var _videoDialogOpenBtn = document.querySelector('.index-content .index-content-right .introduce-video-play');  
+        $.addEventListener(_videoDialogOpenBtn,'click',function(){
+            showVidoeDialog();
+        });   
+        
+    }
+    /**
+     * 视频播放器弹窗
+     */
+    function showVidoeDialog(){
+        var _videoDialogHtml = '<div class="dialog-bg ie-fixed"></div>' +
+        '<div class="dialog-container video-container">' +
+        '<span class="btn-close">×</span>' +
+        '<p class="video-title">请观看下面的视频</p>' +
+        '<div class="video-panel">' +
+        '<video width="891" height="593" controls poster="./img/img-video-poster.jpg">' +
+        '<source src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" type="video/mp4">' +
+        '<p>您的浏览器不支持播放器标签，请更换浏览器打开或升级浏览器！</p>' +
+        '</video>' +
+        '<div class="btn-video-play">' +
+        '<img src="./img/btn-video-play.png">' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+        //添加元素至body中
+        var _div = document.createElement("div");
+        _div.innerHTML = _videoDialogHtml;
+        $.addClass(_div, "public-dialog");
+        document.body.insertBefore(_div, document.body.firstChild);
+        var _playBtn = document.querySelector('.public-dialog .video-panel .btn-video-play');
+        var _closeBtn =  document.querySelector('.public-dialog .dialog-container .btn-close');
+        //如果浏览器不支持video标签，则隐藏_playBtn
+        if(!!(document.createElement('video').canPlayType)){
+            var _videoEl = document.querySelector('.public-dialog .video-panel video');
+            $.addEventListener(_videoEl,'play',function(){
+                //视频播放时，隐藏播放按钮
+                _playBtn.style.display = 'none';
+            });
+            $.addEventListener(_videoEl,'pause',function(){
+                //视频播放时，隐藏播放按钮
+                _playBtn.style.display = '';
+            });
+            $.addEventListener(_playBtn,'click',function(){
+                _videoEl.play();
+                _playBtn.style.display = 'none';
+            });
+        }else{
+            _playBtn.style.display = 'none';
+        }
+
+        //登录框关闭按钮
+        $.addEventListener(_closeBtn, 'click', loginCloseBtnClickHandler);
+        function loginCloseBtnClickHandler() {
+            $.removeEventListener(_closeBtn, 'click', loginCloseBtnClickHandler);
+            //移除弹窗层
+            document.body.removeChild(_div);
         }
     }
 })();

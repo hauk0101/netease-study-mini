@@ -254,6 +254,10 @@
     font:14px "Microsoft YaHei";
 }
 
+.index-content .index-content-right .right-content:hover{
+    box-shadow: 1px 1px 1px #cccccc;
+}
+
 .index-content .index-content-right .introduce-video-play{
     margin-top: 10px;
     cursor: pointer;
@@ -311,4 +315,29 @@
     font-size: 12px;
     background: url("../img/icon-course-hot.png") no-repeat 13px;
     padding-left:30px;
+}
+
+/** 视频播放弹层模块 **/
+.public-dialog .video-container{
+    width: 950px;
+    height: 676px;
+}
+
+.public-dialog .video-container .video-title{
+    margin: 30px 0 20px 30px;
+    font:18px "Microsoft YaHei";
+    font-weight: bolder;
+}
+
+.public-dialog .video-container .video-panel{
+    width: 890px;
+    height: 538px;
+    margin: 0 0 40px 30px;
+}
+
+.public-dialog .video-container .btn-video-play{
+    position: absolute;
+    bottom: 120px;
+    left: 50px;
+    cursor: pointer;
 }
