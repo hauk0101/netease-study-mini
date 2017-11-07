@@ -135,7 +135,11 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 if (200 <= xhr.status && xhr.status < 300 || xhr.status == 304) {
-                    ajaxData.success(xhr.response);
+                    var _data = xhr.response;
+                    if (ajaxData.dataType == 'json') {
+                        _data = JSON.parse(_data);
+                    }
+                    ajaxData.success(_data);
                 } else {
                     ajaxData.error();
                 }
@@ -232,5 +236,25 @@
         };
         tick();
     };
+
+    /**
+     * 将数组里的元素变为随机顺序
+     * @param {*} dataArray  传入需要打乱元素顺序的数组
+     * @return [] 返回打乱元素顺序的数组
+     */
+    Utils.shuffle = function (dataArray) {
+        var currentIndex = dataArray.length,
+            temporaryValue,
+            randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = dataArray[currentIndex];
+            dataArray[currentIndex] = dataArray[randomIndex];
+            dataArray[randomIndex] = temporaryValue;
+        }
+        return dataArray;
+    };
+
     window.$ = Utils;
 })();
