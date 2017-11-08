@@ -86,6 +86,18 @@
     };
 
     /**
+     * 判断元素是否拥有某个类
+     * @param el 需要进行判断的元素
+     * @param className 需要判断的类名
+     */
+    Utils.hasClass = function (el, className) {
+        if (el.classList)
+            return el.classList.contains(className);
+        else
+            return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+    };
+
+    /**
      * ajax数据请求
      * @param {} 请求时需要传入的对象
      * @description 用法示例

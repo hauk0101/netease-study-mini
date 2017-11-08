@@ -18,10 +18,10 @@
         setFollowStatus();
         //设置轮播图效果
         setBannerEffect();
-
+        //设置内容区域数据
+        setContentData();
         //设置视频模块
         setVideoPlay();
-
         //设置最热排行模块
         setHotRank();
     }
@@ -384,6 +384,90 @@
                 '</div>' +
                 '</div>';
             return _item;
+        }
+    }
+
+    /**
+     * 设置内容区域数据
+     */
+    function setContentData() {
+        var _productDesignTab = document.querySelector("#product-design");
+        var _programLanguageTab = document.querySelector("#program-language");
+        var _pageinationItemList = [];
+        var _pageinationLeftBtn,_pageinationRightBtn;
+        var _courseType = 10;
+        var _pageinationContainerEl = document.querySelector('.index-content .index-content-left .content-pagination-container');
+
+        $.addEventListener(_productDesignTab, 'click', function () {
+            //如果当前为选中状态，则不处理，避免重复请求数据
+            if ($.hasClass(_productDesignTab, 'selected')) return;
+            //样式设置
+            $.addClass(_productDesignTab, 'selected');
+            $.removeClass(_programLanguageTab, 'selected');
+            //数据设置
+            //初次获取数据
+            _courseType = 10;
+            var _data = {
+                pageNo: 1,
+                psize: 20,
+                type: _courseType
+            };
+            getCourseData(_data, function (data) {
+                console.log(data.pagination);
+                //设置分页器
+                var _pageinationCount = data.pageination.totlePageCount;
+                _pageinationItemList = createPageination(_pageinationCount);
+            });
+        });
+        $.addEventListener(_programLanguageTab, 'click', function () {
+            //如果当前为选中状态，则不处理，避免重复请求数据
+            if ($.hasClass(_programLanguageTab, 'selected')) return;
+            //样式设置
+            $.addClass(_programLanguageTab, 'selected');
+            $.removeClass(_productDesignTab, 'selected');
+            //数据设置
+            //初次获取数据
+            _courseType = 20;
+            var _data = {
+                pageNo: 1,
+                psize: 20,
+                type: _courseType
+            };
+            getCourseData(_data, function (data) {
+                console.log(data.pagination);
+                //设置 
+            });
+        });
+
+        //根据课程类型，获取课程相关数据
+        function getCourseData(_data, callback) {
+            $.ajax({
+                url: 'http://study.163.com/webDev/couresByCategory.htm',
+                type: "get",
+                dataType: 'json',
+                data: _data,
+                success: function (data) {
+                    callback(data);
+                }
+            });
+        }
+
+        //创建课程元素
+        function createCourseItem(data) {
+
+        }
+        //创建分页器
+        function createPageination(total) {
+            _pageinationLeftBtn = null;
+            _pageinationRightBtn = null;
+            _pageinationContainerEl.innerHTML = "";
+            _pageinationLeftBtn = document.createElement('span');
+            _pageinationLeftBtn.innerHTML = '<';
+            $.addClass(_pageinationLeftBtn,'tab-arrow');
+            _pageinationRightBtn = document.createElement('span');
+            _pageinationRightBtn.innerHTML = '>';
+            $.addClass(_pageinationRightBtn,'tab-arrow');
+            
         }
     }
 })();
