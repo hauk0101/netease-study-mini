@@ -393,16 +393,18 @@
     function setContentData() {
         var _productDesignTab = document.querySelector("#product-design");
         var _programLanguageTab = document.querySelector("#program-language");
-        var _pageinationItemList = [];
+        var _pageinationContainerEl = document.querySelector('.index-content .index-content-left .content-pagination-container');
+        var _courseContentContainerEl = document.querySelector('.index-content .index-content-left .content-container');
+        var _pageinationItemList = [], _courseContentItemList = [];
         var _pageinationLeftBtn, _pageinationRightBtn;
         var _courseType = 10;
-        var _pageinationContainerEl = document.querySelector('.index-content .index-content-left .content-pagination-container');
+
         var _currentPageinateIndex = 1;
         //设置默认数据
         getCourseData({ pageNo: 1, psize: 20, type: _courseType }, function (data) {
             //设置分页器
             setPageinationItem(data);
-            //TODO 设置课程内容
+            // 设置课程内容
             updateCourseData({
                 pageNo: _currentPageinateIndex,
                 psize: 20,
@@ -414,15 +416,14 @@
         function setPageinationItem(data) {
             //设置分页器页码
             var _pageinationCount = data.pagination.totlePageCount;
-            _pageinationItemList = createPageination(_pageinationCount);
+            createPageination(_pageinationCount);
             //判断当前页码是否为第1个或最后1个，并作出相关设置
+            $.removeClass(_pageinationLeftBtn, 'disabled');
+            $.removeClass(_pageinationRightBtn, 'disabled');
             if (_currentPageinateIndex == 1) {
                 $.addClass(_pageinationLeftBtn, 'disabled');
             } else if (_currentPageinateIndex == _pageinationCount) {
                 $.addClass(_pageinationRightBtn, 'disabled');
-            } else {
-                $.removeClass(_pageinationLeftBtn, 'disabled');
-                $.removeClass(_pageinationRightBtn, 'disabled');
             }
             //设置分页器点击事件
             _currentPageinateIndex = 1;
@@ -440,15 +441,14 @@
                 var _item = _pageinationItemList[_currentPageinateIndex - 1];
                 //设置当前页码元素为选中状态
                 $.addClass(_item, 'tab-item-select');
+                $.removeClass(_pageinationLeftBtn, 'disabled');
+                $.removeClass(_pageinationRightBtn, 'disabled');
                 if (_currentPageinateIndex == 1) {
                     $.addClass(_pageinationLeftBtn, 'disabled');
                 } else if (_currentPageinateIndex == _pageinationItemList.length) {
                     $.addClass(_pageinationRightBtn, 'disabled');
-                } else {
-                    $.removeClass(_pageinationLeftBtn, 'disabled');
-                    $.removeClass(_pageinationRightBtn, 'disabled');
-                }
-                //TODO 设置课程内容
+                } 
+                // 设置课程内容
                 updateCourseData({
                     pageNo: _currentPageinateIndex,
                     psize: 20,
@@ -465,15 +465,14 @@
                 var _item = _pageinationItemList[_currentPageinateIndex - 1];
                 //设置当前页码元素为选中状态
                 $.addClass(_item, 'tab-item-select');
+                $.removeClass(_pageinationLeftBtn, 'disabled');
+                $.removeClass(_pageinationRightBtn, 'disabled');
                 if (_currentPageinateIndex == 1) {
                     $.addClass(_pageinationLeftBtn, 'disabled');
                 } else if (_currentPageinateIndex == _pageinationItemList.length) {
                     $.addClass(_pageinationRightBtn, 'disabled');
-                } else {
-                    $.removeClass(_pageinationLeftBtn, 'disabled');
-                    $.removeClass(_pageinationRightBtn, 'disabled');
-                }
-                //TODO 设置课程内容
+                } 
+                // 设置课程内容
                 updateCourseData({
                     pageNo: _currentPageinateIndex,
                     psize: 20,
@@ -493,13 +492,12 @@
             //设置当前页码元素为选中状态
             $.addClass(_item, 'tab-item-select');
             //判断当前页码是否为第1个或最后1个，并作出相关设置
+            $.removeClass(_pageinationLeftBtn, 'disabled');
+            $.removeClass(_pageinationRightBtn, 'disabled');
             if (_currentPageinateIndex == 1) {
                 $.addClass(_pageinationLeftBtn, 'disabled');
             } else if (_currentPageinateIndex == _pageinationItemList.length) {
                 $.addClass(_pageinationRightBtn, 'disabled');
-            } else {
-                $.removeClass(_pageinationLeftBtn, 'disabled');
-                $.removeClass(_pageinationRightBtn, 'disabled');
             }
             //根据当前页数，页面类型，请求数据，并更新课程内容
             updateCourseData({
@@ -515,7 +513,7 @@
                 $.removeClass(arr[i], 'tab-item-select');
             }
         }
-
+        //产品设计tab按钮点击事件监听
         $.addEventListener(_productDesignTab, 'click', function () {
             //如果当前为选中状态，则不处理，避免重复请求数据
             if ($.hasClass(_productDesignTab, 'selected')) return;
@@ -541,6 +539,7 @@
                 });
             });
         });
+          //编程语言tab按钮点击事件监听
         $.addEventListener(_programLanguageTab, 'click', function () {
             //如果当前为选中状态，则不处理，避免重复请求数据
             if ($.hasClass(_programLanguageTab, 'selected')) return;
@@ -558,7 +557,7 @@
             getCourseData(_data, function (data) {
                 //设置分页器
                 setPageinationItem(data);
-                //TODO 设置课程内容
+                // 设置课程内容
                 updateCourseData({
                     pageNo: _currentPageinateIndex,
                     psize: 20,
@@ -568,35 +567,68 @@
         });
 
         //更新课程内容数据
-        function updateCourseData(_data) {
+        function updateCourseData(param) {
             //请求数据
-            console.log(_data)
-            // getCourseData(_data, function (data) {
-            //     console.log(data);
-            // });
+            getCourseData(param, function (data) {
+                createCourseItem(data);
+            });
         }
 
         //根据课程类型，获取课程相关数据
-        function getCourseData(_data, callback) {
+        function getCourseData(param, callback) {
             $.ajax({
                 url: 'http://study.163.com/webDev/couresByCategory.htm',
                 type: "get",
                 dataType: 'json',
-                data: _data,
+                data: param,
                 success: function (data) {
-                    callback(data);
+                    if(!!data){
+                        callback(data);
+                    }
                 }
             });
         }
 
         //创建课程元素
         function createCourseItem(data) {
-
+            _courseContentItemList = [];
+            _courseContentContainerEl.innerHTML="";
+            var _dataList = data.list;
+            for(var i = 0,len = _dataList.length;i<len;i++){
+                var _div = document.createElement('div');
+                $.addClass(_div,'content-course-panel');
+                //课程图片
+                var _img = document.createElement('img');
+                _img.src = _dataList[i].middlePhotoUrl;
+                _div.appendChild(_img);
+                //课程名称
+                var _pName = document.createElement('p');
+                $.addClass(_pName,'course-name');
+                _pName.innerHTML=_dataList[i].name;
+                _div.appendChild(_pName);
+                //课程作者
+                var _pAuthor = document.createElement('p');
+                $.addClass(_pAuthor,'course-author');
+                _pAuthor.innerHTML = _dataList[i].provider;
+                _div.appendChild(_pAuthor);
+                //课程热度
+                var _span =document.createElement('span');
+                $.addClass(_span,'course-hot');
+                _span.innerHTML = _dataList[i].learnerCount;
+                _div.appendChild(_span);
+                //课程价格
+                var _pPrice = document.createElement('p');
+                $.addClass(_pPrice,'course-price');
+                _pPrice.innerHTML = (_dataList[i].price == 0)? "免费":"￥"+_dataList[i].price.toString();
+                _div.appendChild(_pPrice);
+                _courseContentContainerEl.appendChild(_div);
+                _courseContentItemList.push(_div);
+            }
         }
         //创建分页器
         function createPageination(total) {
             if (total < 1) return null;
-            var _list = [];
+            _pageinationItemList = [];
             _pageinationLeftBtn = null;
             _pageinationRightBtn = null;
             _pageinationContainerEl.innerHTML = "";
@@ -611,16 +643,15 @@
                 $.addClass(_span, 'pageination-tab-item');
                 _span.innerHTML = (i + 1).toString();
                 _pageinationContainerEl.appendChild(_span);
-                _list.push(_span);
+                _pageinationItemList.push(_span);
             }
             //默认第1页为选中页
-            $.addClass(_list[0], 'tab-item-select');
+            $.addClass(_pageinationItemList[0], 'tab-item-select');
             //向后按钮
             _pageinationRightBtn = document.createElement('span');
             _pageinationRightBtn.innerHTML = '>';
             $.addClass(_pageinationRightBtn, 'tab-arrow');
             _pageinationContainerEl.appendChild(_pageinationRightBtn);
-            return _list;
         }
     }
 })();

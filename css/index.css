@@ -157,11 +157,11 @@
     box-shadow: 1px 2px 1px #cccccc;
 }
 
-.index-content .content-container .content-course-panel:hover .course-desc{
+.index-content .content-container .content-course-panel:hover .course-name{
     color:#39a030;
 }
 
-.index-content .content-container .course-desc{
+.index-content .content-container .course-name{
     font-weight: bolder;
 }
 
