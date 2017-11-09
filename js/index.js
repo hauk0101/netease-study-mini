@@ -394,9 +394,127 @@
         var _productDesignTab = document.querySelector("#product-design");
         var _programLanguageTab = document.querySelector("#program-language");
         var _pageinationItemList = [];
-        var _pageinationLeftBtn,_pageinationRightBtn;
+        var _pageinationLeftBtn, _pageinationRightBtn;
         var _courseType = 10;
         var _pageinationContainerEl = document.querySelector('.index-content .index-content-left .content-pagination-container');
+        var _currentPageinateIndex = 1;
+        //设置默认数据
+        getCourseData({ pageNo: 1, psize: 20, type: _courseType }, function (data) {
+            //设置分页器
+            setPageinationItem(data);
+            //TODO 设置课程内容
+            updateCourseData({
+                pageNo: _currentPageinateIndex,
+                psize: 20,
+                type: _courseType
+            });
+        });
+
+        //设置分页器
+        function setPageinationItem(data) {
+            //设置分页器页码
+            var _pageinationCount = data.pagination.totlePageCount;
+            _pageinationItemList = createPageination(_pageinationCount);
+            //判断当前页码是否为第1个或最后1个，并作出相关设置
+            if (_currentPageinateIndex == 1) {
+                $.addClass(_pageinationLeftBtn, 'disabled');
+            } else if (_currentPageinateIndex == _pageinationCount) {
+                $.addClass(_pageinationRightBtn, 'disabled');
+            } else {
+                $.removeClass(_pageinationLeftBtn, 'disabled');
+                $.removeClass(_pageinationRightBtn, 'disabled');
+            }
+            //设置分页器点击事件
+            _currentPageinateIndex = 1;
+            for (var i = 0, len = _pageinationItemList.length; i < len; i++) {
+                $.addEventListener(_pageinationItemList[i], 'click', pageinationItemClickHandle);
+            }
+            //设置分页器左右箭头点击事件
+            $.addEventListener(_pageinationLeftBtn, 'click', function (evt) {
+                //判断左箭头按钮是否可点击
+                if ($.hasClass(evt.target, 'disabled')) return;
+                //当前页码-1，并设置数据
+                _currentPageinateIndex -= 1;
+                //清除原有页码选中样式
+                clearPageinationItemSelectEffect(_pageinationItemList);
+                var _item = _pageinationItemList[_currentPageinateIndex - 1];
+                //设置当前页码元素为选中状态
+                $.addClass(_item, 'tab-item-select');
+                if (_currentPageinateIndex == 1) {
+                    $.addClass(_pageinationLeftBtn, 'disabled');
+                } else if (_currentPageinateIndex == _pageinationItemList.length) {
+                    $.addClass(_pageinationRightBtn, 'disabled');
+                } else {
+                    $.removeClass(_pageinationLeftBtn, 'disabled');
+                    $.removeClass(_pageinationRightBtn, 'disabled');
+                }
+                //TODO 设置课程内容
+                updateCourseData({
+                    pageNo: _currentPageinateIndex,
+                    psize: 20,
+                    type: _courseType
+                });
+            });
+            $.addEventListener(_pageinationRightBtn, 'click', function (evt) {
+                //判断左箭头按钮是否可点击
+                if ($.hasClass(evt.target, 'disabled')) return;
+                //当前页码+1，并设置数据
+                _currentPageinateIndex += 1;
+                //清除原有页码选中样式
+                clearPageinationItemSelectEffect(_pageinationItemList);
+                var _item = _pageinationItemList[_currentPageinateIndex - 1];
+                //设置当前页码元素为选中状态
+                $.addClass(_item, 'tab-item-select');
+                if (_currentPageinateIndex == 1) {
+                    $.addClass(_pageinationLeftBtn, 'disabled');
+                } else if (_currentPageinateIndex == _pageinationItemList.length) {
+                    $.addClass(_pageinationRightBtn, 'disabled');
+                } else {
+                    $.removeClass(_pageinationLeftBtn, 'disabled');
+                    $.removeClass(_pageinationRightBtn, 'disabled');
+                }
+                //TODO 设置课程内容
+                updateCourseData({
+                    pageNo: _currentPageinateIndex,
+                    psize: 20,
+                    type: _courseType
+                });
+            });
+        }
+        //分页器item点击处理函数
+        function pageinationItemClickHandle(evt) {
+            var _item = evt.target;
+            var _index = parseInt(_item.innerHTML);
+            //如果点击的是当前分页器item,则返回不执行，避免重复请求数据
+            if (_currentPageinateIndex == _index) return;
+            _currentPageinateIndex = _index;
+            //清除原有页码选中样式
+            clearPageinationItemSelectEffect(_pageinationItemList);
+            //设置当前页码元素为选中状态
+            $.addClass(_item, 'tab-item-select');
+            //判断当前页码是否为第1个或最后1个，并作出相关设置
+            if (_currentPageinateIndex == 1) {
+                $.addClass(_pageinationLeftBtn, 'disabled');
+            } else if (_currentPageinateIndex == _pageinationItemList.length) {
+                $.addClass(_pageinationRightBtn, 'disabled');
+            } else {
+                $.removeClass(_pageinationLeftBtn, 'disabled');
+                $.removeClass(_pageinationRightBtn, 'disabled');
+            }
+            //根据当前页数，页面类型，请求数据，并更新课程内容
+            updateCourseData({
+                pageNo: _currentPageinateIndex,
+                psize: 20,
+                type: _courseType
+            });
+        }
+
+        //清除分页器被选中样式
+        function clearPageinationItemSelectEffect(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                $.removeClass(arr[i], 'tab-item-select');
+            }
+        }
 
         $.addEventListener(_productDesignTab, 'click', function () {
             //如果当前为选中状态，则不处理，避免重复请求数据
@@ -413,10 +531,14 @@
                 type: _courseType
             };
             getCourseData(_data, function (data) {
-                console.log(data.pagination);
                 //设置分页器
-                var _pageinationCount = data.pageination.totlePageCount;
-                _pageinationItemList = createPageination(_pageinationCount);
+                setPageinationItem(data);
+                //TODO 设置课程内容
+                updateCourseData({
+                    pageNo: _currentPageinateIndex,
+                    psize: 20,
+                    type: _courseType
+                });
             });
         });
         $.addEventListener(_programLanguageTab, 'click', function () {
@@ -434,10 +556,25 @@
                 type: _courseType
             };
             getCourseData(_data, function (data) {
-                console.log(data.pagination);
-                //设置 
+                //设置分页器
+                setPageinationItem(data);
+                //TODO 设置课程内容
+                updateCourseData({
+                    pageNo: _currentPageinateIndex,
+                    psize: 20,
+                    type: _courseType
+                });
             });
         });
+
+        //更新课程内容数据
+        function updateCourseData(_data) {
+            //请求数据
+            console.log(_data)
+            // getCourseData(_data, function (data) {
+            //     console.log(data);
+            // });
+        }
 
         //根据课程类型，获取课程相关数据
         function getCourseData(_data, callback) {
@@ -458,16 +595,32 @@
         }
         //创建分页器
         function createPageination(total) {
+            if (total < 1) return null;
+            var _list = [];
             _pageinationLeftBtn = null;
             _pageinationRightBtn = null;
             _pageinationContainerEl.innerHTML = "";
+            //向前按钮
             _pageinationLeftBtn = document.createElement('span');
             _pageinationLeftBtn.innerHTML = '<';
-            $.addClass(_pageinationLeftBtn,'tab-arrow');
+            $.addClass(_pageinationLeftBtn, 'tab-arrow');
+            _pageinationContainerEl.appendChild(_pageinationLeftBtn);
+            //中间分页器数据
+            for (var i = 0; i < total; i++) {
+                var _span = document.createElement('span');
+                $.addClass(_span, 'pageination-tab-item');
+                _span.innerHTML = (i + 1).toString();
+                _pageinationContainerEl.appendChild(_span);
+                _list.push(_span);
+            }
+            //默认第1页为选中页
+            $.addClass(_list[0], 'tab-item-select');
+            //向后按钮
             _pageinationRightBtn = document.createElement('span');
             _pageinationRightBtn.innerHTML = '>';
-            $.addClass(_pageinationRightBtn,'tab-arrow');
-            
+            $.addClass(_pageinationRightBtn, 'tab-arrow');
+            _pageinationContainerEl.appendChild(_pageinationRightBtn);
+            return _list;
         }
     }
 })();

@@ -216,9 +216,7 @@
     background-color:#9dd8b1;
     color:#fff;
 }
-.index-content .content-pagination-container .disabled{
-    background-color:#ccc;
-}
+
 
 .index-content .content-pagination-container .tab-item-select{
     color:#39a030;
@@ -231,7 +229,9 @@
     font-weight: bolder;
 }
 
-
+.index-content .content-pagination-container .disabled{
+    background-color:#ccc;
+}
 
 /** 视频模块 **/
 .index-content .index-content-right{
