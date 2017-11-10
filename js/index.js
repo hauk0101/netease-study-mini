@@ -19,7 +19,7 @@
         //设置轮播图效果
         setBannerEffect();
         //设置内容区域数据
-        setContentData();
+        // setContentData();
         //设置视频模块
         setVideoPlay();
         //设置最热排行模块
@@ -596,7 +596,7 @@
             var _dataList = data.list;
             for(var i = 0,len = _dataList.length;i<len;i++){
                 var _div = document.createElement('div');
-                $.addClass(_div,'content-course-panel');
+                $.addClass(_div,'course-panel-normal');
                 //课程图片
                 var _img = document.createElement('img');
                 _img.src = _dataList[i].middlePhotoUrl;
@@ -621,8 +621,11 @@
                 $.addClass(_pPrice,'course-price');
                 _pPrice.innerHTML = (_dataList[i].price == 0)? "免费":"￥"+_dataList[i].price.toString();
                 _div.appendChild(_pPrice);
-                _courseContentContainerEl.appendChild(_div);
-                _courseContentItemList.push(_div);
+                var _normalPanelEl = document.createElement('div');
+                $.addClass(_normalPanelEl,'content-course-panel')
+                _normalPanelEl.appendChild(_div);
+                _courseContentContainerEl.appendChild(_normalPanelEl);
+                _courseContentItemList.push(_normalPanelEl);
             }
         }
         //创建分页器
