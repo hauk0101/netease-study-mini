@@ -233,13 +233,15 @@
 }
 
 .index-content .content-course-panel .big-panel-top .big-course-hot{
-    margin:16px 0 0 242px;
+    margin:16px 0 14px 242px;
     padding-left: 13px;
     color:#999;
     background: url("../img/icon-course-hot.png") no-repeat 0 center;
 }
 
-
+.index-content .content-course-panel .big-panel-top .big-course-type{
+    margin-top: 10px;
+}
 
 .index-content .content-course-panel .course-panel-big .big-panel-bottom{
     padding: 20px;
