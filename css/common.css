@@ -279,3 +279,12 @@
 
 
 
+/**页面布局动态自适应**/
+@media screen and (max-width:1204){
+    /**居中容器模块**/
+    .public-container {
+        position: relative;
+        margin: 0 auto;
+        width: 960px;
+    }
+}   

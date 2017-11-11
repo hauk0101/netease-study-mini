@@ -586,8 +586,16 @@
             });
 
             function normalItemMouseOverHandler(){
+                hideAllBigCourseItem();
                 $.show(this.bigItem);
                 $.removeEventListener(this,'mouseover',normalItemMouseOverHandler);
+            }
+            //隐藏所有详细课程内容
+            function hideAllBigCourseItem(){
+                for(var i = 0;i < _courseContentItemList.length;i++){
+                    var _bigItem = _courseContentItemList[i].querySelector('.course-panel-big');
+                    $.hide(_bigItem);
+                }
             }
         }
 

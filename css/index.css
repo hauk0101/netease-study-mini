@@ -397,3 +397,21 @@
     left: 50px;
     cursor: pointer;
 }
+
+
+
+/**页面布局动态自适应**/
+@media screen and (max-width:1204){
+    /**产品介绍模块**/
+    .index-product .product-panel .product-desc {
+        margin-left: 100px;
+        margin-top: 60px;
+        width: 170px;
+        font: 22px "Microsoft YaHei";
+    }
+    /**课程详情模块**/
+    .index-content .index-content-left{
+        float:left;
+        width:736px;
+    }
+}  
