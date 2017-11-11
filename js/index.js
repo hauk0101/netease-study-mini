@@ -617,6 +617,7 @@
                 //课程图片
                 var _img = document.createElement('img');
                 _img.src = _dataList[i].middlePhotoUrl;
+                _img.alt =  _dataList[i].name;
                 _div.appendChild(_img);
                 //课程名称
                 var _pName = document.createElement('p');
@@ -651,6 +652,7 @@
                 //课程图片
                 var _bImg = document.createElement('img');
                 _bImg.src = _dataList[i].bigPhotoUrl;
+                _bImg.title = _dataList[i].name;
                 _panelTop.appendChild(_bImg);
                 //课程名称
                 var _bName =  document.createElement('p');

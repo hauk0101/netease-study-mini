@@ -1,6 +1,12 @@
 ### 开发小记
 
- * 暂时不考虑性能优化，主要先体现整体前端项目的各个功能的分割和实现
+ * 关于页面SEO
+    * 添加 `<meta name="keywords">` 相关内容
+    * 添加`<meta name="description">`相关内容
+    * 添加`<meta http-equiv="content-language">`相关内容
+    * 添加`<a>`标签的`title`属性
+    * 添加`<img>`标签的`alt`属性
+
  
 
 ### 开发小悟
