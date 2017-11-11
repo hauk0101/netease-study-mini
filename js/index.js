@@ -19,7 +19,7 @@
         //设置轮播图效果
         setBannerEffect();
         //设置内容区域数据
-        // setContentData();
+        setContentData();
         //设置视频模块
         setVideoPlay();
         //设置最热排行模块
@@ -571,7 +571,24 @@
             //请求数据
             getCourseData(param, function (data) {
                 createCourseItem(data);
+                //设置事件
+                for(var i = 0; i < _courseContentItemList.length;i++){
+                    var _normalItem = _courseContentItemList[i].querySelector('.course-panel-normal'); 
+                    var _bigItem = _courseContentItemList[i].querySelector('.course-panel-big');
+                    _normalItem.bigItem = _bigItem;
+                    _bigItem.normalItem = _normalItem;
+                    $.addEventListener(_normalItem,'mouseover',normalItemMouseOverHandler);
+                    $.addEventListener(_bigItem,'mouseleave',function(){
+                        $.addEventListener(this.normalItem,'mouseover',normalItemMouseOverHandler);
+                        $.hide(this);
+                    });
+                }
             });
+
+            function normalItemMouseOverHandler(){
+                $.show(this.bigItem);
+                $.removeEventListener(this,'mouseover',normalItemMouseOverHandler);
+            }
         }
 
         //根据课程类型，获取课程相关数据
@@ -621,11 +638,50 @@
                 $.addClass(_pPrice,'course-price');
                 _pPrice.innerHTML = (_dataList[i].price == 0)? "免费":"￥"+_dataList[i].price.toString();
                 _div.appendChild(_pPrice);
-                var _normalPanelEl = document.createElement('div');
-                $.addClass(_normalPanelEl,'content-course-panel')
-                _normalPanelEl.appendChild(_div);
-                _courseContentContainerEl.appendChild(_normalPanelEl);
-                _courseContentItemList.push(_normalPanelEl);
+                var _coursePanel = document.createElement('div');
+                $.addClass(_coursePanel,'content-course-panel')
+                _coursePanel.appendChild(_div);
+                ////////////////////添加课程详情元素//////////////////
+                var _bigDiv = document.createElement('div');
+                $.addClass(_bigDiv,'course-panel-big');
+                var _panelTop = document.createElement('div');
+                $.addClass(_panelTop,'big-panel-top');
+                $.addClass(_panelTop,'clearfloat');
+                _bigDiv.appendChild(_panelTop);
+                //课程图片
+                var _bImg = document.createElement('img');
+                _bImg.src = _dataList[i].bigPhotoUrl;
+                _panelTop.appendChild(_bImg);
+                //课程名称
+                var _bName =  document.createElement('p');
+                $.addClass(_bName,'big-course-name');
+                _bName.innerHTML = _dataList[i].name;
+                _panelTop.appendChild(_bName);
+                //课程热度
+                var _bHot = document.createElement('p');
+                $.addClass(_bHot,'big-course-hot');
+                _bHot.innerHTML = _dataList[i].learnerCount.toString() + "人在学";
+                _panelTop.appendChild(_bHot);
+                //课程作者
+                var _bAuthor = document.createElement('p');
+                $.addClass(_bAuthor,'big-course-author');
+                _bAuthor.innerHTML = "发布者："+ _dataList[i].provider;
+                _panelTop.appendChild(_bAuthor);
+                //课程分类
+                var _bType = document.createElement('p');
+                $.addClass(_bType,'big-course-type');
+                _bType.innerHTML = "分类："+_dataList[i].categoryName;
+                _panelTop.appendChild(_bType);
+                //课程描述
+                var _panelBottom = document.createElement('div');
+                $.addClass(_panelBottom,'big-panel-bottom');
+                _panelBottom.innerHTML = _dataList[i].description;
+                _bigDiv.appendChild(_panelBottom);
+                //默认隐藏课程详情
+                $.hide(_bigDiv);
+                _coursePanel.appendChild(_bigDiv);
+                _courseContentContainerEl.appendChild(_coursePanel);
+                _courseContentItemList.push(_coursePanel);
             }
         }
         //创建分页器

@@ -98,6 +98,21 @@
     };
 
     /**
+     * 隐藏元素
+     */
+    Utils.hide = function (el){
+        el.style.display = "none";
+    };
+
+    /**
+     * 显示元素
+     */
+    Utils.show = function(el){
+        el.style.display = "";
+    };
+
+
+    /**
      * ajax数据请求
      * @param {} 请求时需要传入的对象
      * @description 用法示例
